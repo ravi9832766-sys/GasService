@@ -1,3 +1,4 @@
+
 name: Build Gas Services APK
 
 on:
@@ -7,28 +8,25 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
+      - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
 
-      - name: Extract Android Project
+      - name: Extract Project
         run: unzip GasServicesAndroid.zip -d source
 
       - name: Build APK
-        run: gradle -p source assembleDebug
+        run: gradle -p source/GasServicesAndroid assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: GasServices-APK
-          path: source/app/build/outputs/apk/debug/app-debug.apk
+          path: source/GasServicesAndroid/app/build/outputs/apk/debug/app-debug.apk
