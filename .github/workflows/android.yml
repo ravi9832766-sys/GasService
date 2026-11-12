@@ -2,6 +2,9 @@
 name: Build Gas Services APK
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
